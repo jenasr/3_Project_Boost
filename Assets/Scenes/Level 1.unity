@@ -272,6 +272,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6728158860359606094, guid: 843e1995169d56a4f955a87ba5c02cf7,
+        type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6728158860359606094, guid: 843e1995169d56a4f955a87ba5c02cf7,
+        type: 3}
+      propertyPath: m_Pitch
+      value: 0.55
+      objectReference: {fileID: 0}
+    - target: {fileID: 6728158860359606094, guid: 843e1995169d56a4f955a87ba5c02cf7,
+        type: 3}
+      propertyPath: m_Volume
+      value: 0.444
+      objectReference: {fileID: 0}
     - target: {fileID: 7123614082431539674, guid: 843e1995169d56a4f955a87ba5c02cf7,
         type: 3}
       propertyPath: m_Name
@@ -285,7 +300,7 @@ PrefabInstance:
     - target: {fileID: 7123614082431539675, guid: 843e1995169d56a4f955a87ba5c02cf7,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -2.55
       objectReference: {fileID: 0}
     - target: {fileID: 7123614082431539675, guid: 843e1995169d56a4f955a87ba5c02cf7,
         type: 3}
