@@ -10,6 +10,10 @@ public class Rocket : MonoBehaviour
     [SerializeField] float mainThrust = 3f;
     Rigidbody rigidBody;
     AudioSource thrusterAudio;
+
+    enum State {Alive, Dead, Transcending};
+    State state = State.Alive;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -20,25 +24,44 @@ public class Rocket : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Thrust();
-        Rotate();
+        if (state == State.Alive)
+        {
+            Thrust();
+            Rotate();
+        }
+        
     }
     void OnCollisionEnter(Collision collision)
     {
+        if (state != State.Alive) { return; }
         switch (collision.gameObject.tag)
         {
             case "Friendly": 
                 break;
             case "Finish":
-                print("Hit Finisgh");
-                SceneManager.LoadScene(1);
+                state = State.Transcending;
+                Invoke("LoadNextLevel", 1f);//Call functions with name 
+                //after certain time period, in this case 1 second
                 break;
-            default: 
-                print("dead");
-                SceneManager.LoadScene(0);
+            default:
+                Invoke("LoadFirstLevel", 1f);
+                state = State.Dead;
                 break;
         }
     }
+
+    private void LoadFirstLevel()
+    {
+        print("dead");
+        SceneManager.LoadScene(0);
+    }
+
+    private void LoadNextLevel()
+    {
+        print("Hit Finish");
+        SceneManager.LoadScene(1);
+    }
+
     private void Thrust()
     {
         if (Input.GetKey(KeyCode.Space))
@@ -65,7 +88,7 @@ public class Rocket : MonoBehaviour
             
             transform.Rotate(Vector3.forward * rotationThisFrame);//Rotates Counter clockwise
         }
-        else if (Input.GetKey(KeyCode.D))
+        else if (Input.GetKey(KeyCode.D) && state == State.Alive)
         {
             transform.Rotate(-Vector3.forward * rotationThisFrame);//Rotates Clockwise
         }
