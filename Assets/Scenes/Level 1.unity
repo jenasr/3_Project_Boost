@@ -1030,6 +1030,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 29682332000487211, guid: 843e1995169d56a4f955a87ba5c02cf7,
+        type: 3}
+      propertyPath: levelLoadDelay
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 29682332000487212, guid: 843e1995169d56a4f955a87ba5c02cf7,
         type: 3}
       propertyPath: m_Name
@@ -2229,7 +2234,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1901432470}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8bc682acad7de7a429e496ab509b67d5, type: 3}
   m_Name: 
@@ -3382,12 +3387,12 @@ PrefabInstance:
     - target: {fileID: 8588611631473182162, guid: 29e963a5dc16db24181f550a01f76e63,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 7.99
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 8588611631473182162, guid: 29e963a5dc16db24181f550a01f76e63,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -40.03
+      value: -51
       objectReference: {fileID: 0}
     - target: {fileID: 8588611631473182162, guid: 29e963a5dc16db24181f550a01f76e63,
         type: 3}
@@ -3449,5 +3454,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Main Camera
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1901432474, guid: 29e963a5dc16db24181f550a01f76e63, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 29e963a5dc16db24181f550a01f76e63, type: 3}
