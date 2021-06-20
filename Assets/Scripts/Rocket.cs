@@ -22,7 +22,7 @@ public class Rocket : MonoBehaviour
     AudioSource audioSource;
     enum State {Alive, Dead, Transcending};
     State state = State.Alive;
-
+    bool collisionsDisabled = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -38,11 +38,26 @@ public class Rocket : MonoBehaviour
             RespondToThrustInput();
             RespondToRotationInput();
         }
+        if (Debug.isDebugBuild)
+        {
+            RespondToDebugKeys();
+        }
         
+    }
+    private void RespondToDebugKeys()
+    {
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            LoadNextLevel();
+        }
+        else if (Input.GetKeyDown(KeyCode.C))
+        {
+            collisionsDisabled = !collisionsDisabled; // toggle
+        }
     }
     void OnCollisionEnter(Collision collision)
     {
-        if (state != State.Alive) { return; }
+        if (state != State.Alive || collisionsDisabled) { return; }
         switch (collision.gameObject.tag)
         {
             case "Friendly": 
@@ -62,7 +77,7 @@ public class Rocket : MonoBehaviour
         audioSource.Stop();
         audioSource.PlayOneShot(death);
         deathParticles.Play();
-        Invoke("LoadFirstLevel", levelLoadDelay);
+        Invoke("LoadCurrentLevel", levelLoadDelay);
     }
 
     private void StartSuccessSequence()
@@ -74,16 +89,22 @@ public class Rocket : MonoBehaviour
         //after certain time period, in this case 1 second
     }
 
-    private void LoadFirstLevel()
+    private void LoadCurrentLevel()
     {
         print("dead");
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     private void LoadNextLevel()
     {
-        print("Hit Finish");
-        SceneManager.LoadScene(1);
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        int nextSceneIndex = currentSceneIndex + 1;
+        if (SceneManager.sceneCountInBuildSettings == nextSceneIndex)
+        {
+           nextSceneIndex = 0;
+        }
+        SceneManager.LoadScene(nextSceneIndex);
+        
     }
 
     private void RespondToThrustInput()
@@ -115,18 +136,24 @@ public class Rocket : MonoBehaviour
 
     private void RespondToRotationInput()
     {
-        rigidBody.freezeRotation = true; //take manual control of rotation
+        
         float rotationThisFrame = rcsThrust * Time.deltaTime;
         if (Input.GetKey(KeyCode.A))
         {
-            
-            transform.Rotate(Vector3.forward * rotationThisFrame);//Rotates Counter clockwise
+            RotateManually(rotationThisFrame);
         }
         else if (Input.GetKey(KeyCode.D) && state == State.Alive)
         {
-            transform.Rotate(-Vector3.forward * rotationThisFrame);//Rotates Clockwise
+            RotateManually(-rotationThisFrame);
         }
-        rigidBody.freezeRotation = false; //resume physics control
+         
 
+    }
+
+    private void RotateManually(float rotationThisFrame)
+    {
+        rigidBody.freezeRotation = true; //take manual control of rotation
+        transform.Rotate(Vector3.forward * rotationThisFrame);//Rotates Counter clockwise
+        rigidBody.freezeRotation = false;//resume physics control
     }
 }

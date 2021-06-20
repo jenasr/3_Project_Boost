@@ -737,11 +737,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b33830b1800d70408838812a5b21265, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rcsThrust: 150
+  rcsThrust: 200
   mainThrust: 500
   mainEngine: {fileID: 8300000, guid: 5e9ba1b6bb523484197ecc881b1a170f, type: 3}
   success: {fileID: 8300000, guid: e000b397c6e1c2045ac05d48cbb527a0, type: 3}
   death: {fileID: 8300000, guid: 060a4a27e866ff5478960f81840f4e74, type: 3}
+  levelLoadDelay: 1
   mainEngineParticles: {fileID: 198100719251041083}
   successParticles: {fileID: 198631066226036202}
   deathParticles: {fileID: 198204747387323780}
